@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { ListItems } from './list-items.js';
 import * as actionCreators from '../actions/api-actions.js';
 
 export class CmsIndex extends React.Component {
@@ -20,6 +21,7 @@ export class CmsIndex extends React.Component {
 		return (
 			<div>
 				<h1>CMS</h1>
+				<ListItems data={this.props.data} />
 			</div>
 		);
 	}
