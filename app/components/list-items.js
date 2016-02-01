@@ -12,6 +12,7 @@ export class ListItems extends React.Component {
 				<div className={ 'item ' + item.status } key={i}>
 					<p><strong>{item.content.title}</strong></p>
 					<p>{item.content.body}</p>
+					<p>Status: {item.status}</p>
 					<p>Tags: {itemTags}</p>
 					<hr />
 				</div>

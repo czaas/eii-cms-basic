@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, DemoBox } from 'elemental';
+import { Container, Row, Col } from 'elemental';
 
 // My Components
 import { ListItems } from './list-items.js';
@@ -18,32 +18,38 @@ export class CmsIndex extends React.Component {
 		super(props);
 
 		this.componentDidMount = this.componentDidMount.bind(this); 
+		this.handleNewItem = this.handleNewItem.bind(this);
 	}
 
 	componentDidMount() {
 		this.props.actions.apiGetData('all');
 	}
 
+	handleNewItem(item) {
+		this.props.actions.apiAddItem(item);
+	}
+
 	render() {
 		return (
-			<div>
+			<Container>
 				<Row>
-					<Col sm='1/1'>
+					<Col md='1/1'>
 						<h1>CMS</h1>
+						<hr />
 					</Col>
 				</Row>
 				<Row>
-					<Col sm='10%'>
+					<Col md='20%'>
 						<Filters />
 					</Col>
-					<Col sm='60%'>
+					<Col md='50%'>
 						<ListItems data={this.props.data} />
 					</Col>
-					<Col sm='30%'>
-						<ItemForm />
+					<Col md='30%'>
+						<ItemForm handleNewItem={this.handleNewItem} />
 					</Col>
 				</Row>
-			</div>
+			</Container>
 		);
 	}
 }

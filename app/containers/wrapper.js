@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Container } from 'elemental';
 
 export class Wrapper extends React.Component {
 	render() {
 		return (
-			<div>
-				<nav>
-					<Link to="/">Home</Link>
-				</nav>
+			<Container>
+				
 				{this.props.children}
-			</div>
+			</Container>
 		);
 	}
 }
