@@ -20,6 +20,7 @@ export class ListItems extends React.Component {
 
 		return (
 			<div>
+				<h2>All Items</h2>
 				{allItems}
 			</div>
 		);

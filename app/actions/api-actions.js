@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { apiUrl } from '../constants/settings.js';
+import { apiUrl } from '../constants/app.config.js';
 import { GET_DATA, RECEIVE_DATA, SEND_ITEM, ADD_ITEM } from '../constants/actions.js';
 
 // this is what I call to let my store know that I'm making a async call
