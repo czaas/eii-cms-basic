@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute } from 'react-router';
 import createBrowserHistory from 'history';
 
-import { store } from '../stores/api-store.js';
+import { store } from '../stores/store.js';
 
 import { Wrapper } from './wrapper.js';
 import CmsIndex from '../components/cms-index.js';

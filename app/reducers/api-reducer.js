@@ -1,4 +1,7 @@
-import { GET_DATA, RECEIVE_DATA, SEND_ITEM, ADD_ITEM } from '../constants/actions.js';
+import { 
+	GET_DATA, RECEIVE_DATA,
+	SEND_ITEM, ADD_ITEM 
+} from '../constants/action-types.js';
 
 export function apiReducer(state = {
 	isFetching: false,
@@ -23,7 +26,7 @@ export function apiReducer(state = {
 		case ADD_ITEM:
 			return Object.assign({}, state, {
 				isPosting: false,
-				data: [...state.data, action.newItem]
+				data: [action.newItem, ...state.data]
 			});
 			
 		default:

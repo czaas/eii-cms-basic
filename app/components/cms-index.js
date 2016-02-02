@@ -10,7 +10,8 @@ import { Filters } from './filters.js';
 import { ItemForm } from './item-form.js';
 
 // actions
-import * as actionCreators from '../actions/api-actions.js';
+import * as apiActionCreators from '../actions/actions.js';
+
 
 export class CmsIndex extends React.Component {
 
@@ -22,6 +23,9 @@ export class CmsIndex extends React.Component {
 	}
 
 	componentDidMount() {
+
+		this.props.actions.changeStatusFilter(['Published', 'Draft']);
+
 		this.props.actions.apiGetData('all');
 	}
 
@@ -64,7 +68,7 @@ function mapStateToProps (state) {
 // binding store dispatch items to props
 function mapDispatchToProps (dispatch) {
 	return {
-		actions: bindActionCreators(actionCreators, dispatch)
+		actions: bindActionCreators(apiActionCreators, dispatch)
 	}
 }
 

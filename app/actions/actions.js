@@ -1,7 +1,19 @@
 import axios from 'axios';
 
 import { apiUrl } from '../constants/app.config.js';
-import { GET_DATA, RECEIVE_DATA, SEND_ITEM, ADD_ITEM } from '../constants/actions.js';
+import { 
+	GET_DATA, RECEIVE_DATA, 
+	SEND_ITEM, ADD_ITEM,
+	STATUS_FILTER
+} from '../constants/action-types.js';
+
+export function changeStatusFilter (statusFilter) {
+	return {
+		type: STATUS_FILTER,
+		statusFilter
+	}
+}
+
 
 // this is what I call to let my store know that I'm making a async call
 function getData (itemType) {
