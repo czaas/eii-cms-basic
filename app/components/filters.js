@@ -13,24 +13,22 @@ export class Filters extends React.Component {
 
 		let statusFilters = this.props.statuses.map((status, i) => {				
 				return (
-					<div key={i}>
-						<label htmlFor={'status-' + status.name}>
-							<input 
-								type='checkbox' 
-								onChange={this.handleStatusToggle.bind(this, i)} 
-								key={i} 
-								defaultChecked={status.isVisible} 
-								id={'status-' + status.name} 
-								/> {status.name}
-						</label>
-						<br />
-					</div>
+					<label htmlFor={'status-' + status.name} className='Checkbox' key={i}>
+						<input 
+							type='checkbox' 
+							className='Checkbox__input'
+							onChange={this.handleStatusToggle.bind(this, i)} 
+							key={i} 
+							defaultChecked={status.isVisible} 
+							id={'status-' + status.name} 
+							/> {status.name}
+					</label>
 				)
 			});
 		return (
 			<div>
 				<h2>Filters</h2>
-				<form ref="statusForm">
+				<form ref="statusForm" className="Form Form--basic">
 					{statusFilters}
 				</form>
 			</div>
