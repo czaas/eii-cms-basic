@@ -48,7 +48,6 @@ export class CmsIndex extends React.Component {
 
 	toggleStatus(index) {
 		this.props.actions.status.toggleStatus(index);
-		// console.log(index);
 	}
 
 	render() {
@@ -65,7 +64,7 @@ export class CmsIndex extends React.Component {
 						<Filters statuses={this.props.statuses} toggleStatus={this.toggleStatus} />
 					</Col>
 					<Col md='50%'>
-						<ListItems data={this.props.data} />
+						<ListItems data={this.props.data} statuses={this.props.statuses} />
 					</Col>
 					<Col md='30%'>
 						<ItemForm handleNewItem={this.handleNewItem} />
