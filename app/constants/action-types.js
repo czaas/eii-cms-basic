@@ -4,5 +4,7 @@ export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const ADD_ITEM = 'ADD_ITEM';
 export const SEND_ITEM = 'SEND_ITEM';
 
-// Filters action types
-export const STATUS_FILTER = 'STATUS_FILTER';
+
+// Status Action types
+export const ADD_ITEM_STATUS = 'ADD_ITEM_STATUS';
+export const TOGGLE_ITEM_STATUS = 'TOGGLE_ITEM_STATUS';

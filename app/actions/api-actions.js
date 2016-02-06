@@ -7,14 +7,12 @@ import {
 	STATUS_FILTER
 } from '../constants/action-types.js';
 
-export function changeStatusFilter (statusFilter) {
-	return {
-		type: STATUS_FILTER,
-		statusFilter
-	}
-}
-
-
+/*
+========================================================
+	These four functions below will be called within the async function later
+	these will not be exported
+========================================================
+*/
 // this is what I call to let my store know that I'm making a async call
 function getData (itemType) {
 	return {

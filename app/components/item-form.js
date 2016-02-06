@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, FormField, FormInput, FormSelect, Checkbox, Button } from 'elemental';
-import { ITEM_TYPES, ITEM_STATUS } from '../constants/app.config.js';
+import { ITEM_TYPES } from '../constants/app.config.js';
 
 export class ItemForm extends React.Component {
 
@@ -32,8 +32,8 @@ export class ItemForm extends React.Component {
 
 		let typeOptions = ITEM_TYPES.map((type, i) => <option key={i} value={type}>{type}</option>);
 
-		let statusOptions = ITEM_STATUS.map((status, i) => <option key={i} value={status}>{status}</option>);
-
+		// let statusOptions = ITEM_STATUS.map((status, i) => <option key={i} value={status}>{status}</option>);
+		// {statusOptions}
 		return (
 			<div>
 				<h2>Add or edit item</h2>
@@ -47,7 +47,7 @@ export class ItemForm extends React.Component {
 
 					<FormField label="Status" htmlFor="item-status">
 						<select className="FormInput FormSelect" ref="item_status">
-							{statusOptions}
+							<option value="Published">Published</option>
 						</select>
 					</FormField>
 					
