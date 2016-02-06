@@ -32,7 +32,7 @@ export class ItemForm extends React.Component {
 
 		let typeOptions = ITEM_TYPES.map((type, i) => <option key={i} value={type}>{type}</option>);
 
-		// let statusOptions = ITEM_STATUS.map((status, i) => <option key={i} value={status}>{status}</option>);
+		let statusOptions = this.props.statuses.map((status, i) => <option key={i} value={status.name}>{status.name}</option>);
 		// {statusOptions}
 		return (
 			<div>
@@ -47,7 +47,7 @@ export class ItemForm extends React.Component {
 
 					<FormField label="Status" htmlFor="item-status">
 						<select className="FormInput FormSelect" ref="item_status">
-							<option value="Published">Published</option>
+							{statusOptions}
 						</select>
 					</FormField>
 					

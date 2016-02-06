@@ -14,7 +14,7 @@ import * as apiActionCreators from '../actions/api-actions.js';
 import * as itemStatusCreators from '../actions/item-status-actions.js';
 
 // Custom Configurations for CMS
-import { ITEM_TYPES } from '../constants/app.config.js';
+import { ITEM_TYPES, STATUSES } from '../constants/app.config.js';
 
 export class CmsIndex extends React.Component {
 
@@ -27,19 +27,9 @@ export class CmsIndex extends React.Component {
 	}
 
 	componentDidMount() {
-		let statuses = [{
-			name: 'Published',
-			isVisible: true,
-		},{
-			name: 'Draft',
-			isVisible: true,
-		},{
-			name: 'Archived',
-			isVisible: false,
-		}];
 
 		this.props.actions.api.apiGetData('all');
-		this.props.actions.status.addStatuses(statuses);
+		this.props.actions.status.addStatuses(STATUSES);
 	}
 
 	handleNewItem(item) {
@@ -67,7 +57,7 @@ export class CmsIndex extends React.Component {
 						<ListItems data={this.props.data} statuses={this.props.statuses} />
 					</Col>
 					<Col md='30%'>
-						<ItemForm handleNewItem={this.handleNewItem} />
+						<ItemForm handleNewItem={this.handleNewItem} statuses={this.props.statuses} />
 					</Col>
 				</Row>
 			</Container>
