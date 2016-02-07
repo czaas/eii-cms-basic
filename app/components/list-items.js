@@ -5,7 +5,13 @@ export class ListItems extends React.Component {
 	render() {
 
 		let allItems = this.props.data.map((item, i) => {
-					
+
+			var allClassNames = 'item';
+			
+			allClassNames += ' ' + item.status;
+
+			(item.isBeingDeleted) ? allClassNames += ' beingDeleted' : allClassNames;
+
 			let itemTags = item.tags.map((tag, tagI) => {
 				return tag + ((tagI + 1 < item.tags.length) ? ', ' : '');
 			});
@@ -18,11 +24,13 @@ export class ListItems extends React.Component {
 			}.bind(this);
 
 			return (
-				<div className={ 'item ' + item.status } style={visibilityStyles(item)} key={i}>
+				<div className={ allClassNames } style={visibilityStyles(item)} key={i}>
 					<p><strong>{item.content.title}</strong></p>
 					<p>{item.content.body}</p>
+					<p>{item.id}</p>
 					<p>Status: {item.status}</p>
 					<p>Tags: {itemTags}</p>
+					<p><a onClick={this.props.handleDelete.bind(this, item.id)}><i className='Glyph__icon octicon octicon-trashcan'></i></a></p>
 					<hr />
 				</div>
 			);

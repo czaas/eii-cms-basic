@@ -24,6 +24,7 @@ export class CmsIndex extends React.Component {
 		this.componentDidMount = this.componentDidMount.bind(this); 
 		this.handleNewItem = this.handleNewItem.bind(this);
 		this.toggleStatus = this.toggleStatus.bind(this);
+		this.handleDelete = this.handleDelete.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,6 +41,10 @@ export class CmsIndex extends React.Component {
 		this.props.actions.status.toggleStatus(index);
 	}
 
+	handleDelete(id) {
+		this.props.actions.api.deleteItem(id);
+	}
+
 	render() {
 		return (
 			<Container>
@@ -54,7 +59,7 @@ export class CmsIndex extends React.Component {
 						<Filters statuses={this.props.statuses} toggleStatus={this.toggleStatus} />
 					</Col>
 					<Col md='50%'>
-						<ListItems data={this.props.data} statuses={this.props.statuses} />
+						<ListItems data={this.props.data} statuses={this.props.statuses} handleDelete={this.handleDelete} />
 					</Col>
 					<Col md='30%'>
 						<ItemForm handleNewItem={this.handleNewItem} statuses={this.props.statuses} />
