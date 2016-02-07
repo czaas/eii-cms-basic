@@ -11,6 +11,11 @@ export class ItemForm extends React.Component {
 	}
 
 	handleSubmit() {
+
+		// splitting the strings at the comma 
+		// then trimming whitespace around the tags
+		let tags = this.refs.tags.value.split(',').map( s => s.trim()); 
+
 		let newItem = {
 			type: this.refs.item_type.value,
 			status: this.refs.item_status.value,
@@ -21,7 +26,8 @@ export class ItemForm extends React.Component {
 			content: {
 				title: this.refs.content_title.value,
 				body:  this.refs.content_body.value
-			}
+			},
+			tags: tags,
 		};
 
 		this.props.handleNewItem(newItem);
@@ -33,7 +39,6 @@ export class ItemForm extends React.Component {
 		let typeOptions = ITEM_TYPES.map((type, i) => <option key={i} value={type}>{type}</option>);
 
 		let statusOptions = this.props.statuses.map((status, i) => <option key={i} value={status.name}>{status.name}</option>);
-		// {statusOptions}
 		return (
 			<div>
 
@@ -56,6 +61,9 @@ export class ItemForm extends React.Component {
 					</FormField>
 					<FormField label="Meta Description" htmlFor="meta-description">
 						<input placeholder="Enter meta description" name="meta-description" ref="meta_description" className="FormInput" />
+					</FormField>
+					<FormField label="Tags" htmlFor="tags">
+						<input placeholder="Enter Tags seperated by comma" name="tags" ref="tags" className="FormInput" />
 					</FormField>
 
 					<h3>On page content</h3>
