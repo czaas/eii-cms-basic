@@ -29,6 +29,7 @@ export class Filters extends React.Component {
 			<div>
 				<h2>Filters</h2>
 				<form ref="statusForm" className="Form Form--basic">
+					<h3>Item Status</h3>
 					{statusFilters}
 				</form>
 			</div>

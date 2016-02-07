@@ -36,7 +36,6 @@ export class ItemForm extends React.Component {
 		// {statusOptions}
 		return (
 			<div>
-				<h2>Add or edit item</h2>
 
 				<form action='javascript:;' ref="itemForm" className="Form Form--basic">
 					<FormField label="Item Type" htmlFor="item-type">

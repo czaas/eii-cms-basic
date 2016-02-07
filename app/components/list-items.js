@@ -1,6 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 
+import {
+	Glyph, Button,
+} from 'elemental';
+
 export class ListItems extends React.Component {
 	render() {
 
@@ -30,7 +34,7 @@ export class ListItems extends React.Component {
 					<p>{item.id}</p>
 					<p>Status: {item.status}</p>
 					<p>Tags: {itemTags}</p>
-					<p><a onClick={this.props.handleDelete.bind(this, item.id)}><i className='Glyph__icon octicon octicon-trashcan'></i></a></p>
+					<p><Button onClick={this.props.handleDelete.bind(this, item.id)} type='link-delete'><Glyph icon='trashcan' /></Button></p>
 					<hr />
 				</div>
 			);
