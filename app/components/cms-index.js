@@ -54,7 +54,8 @@ export class CmsIndex extends React.Component {
 	}
 
 	handleDelete(id) {
-		this.props.actions.api.deleteItem(id);
+		var confirmDelete = confirm('Are you sure you want to delete?');
+		(confirmDelete) ? 'this.props.actions.api.deleteItem(id)' : null;
 	}
 
 	toggleModal() {
