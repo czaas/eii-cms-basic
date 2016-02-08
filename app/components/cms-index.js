@@ -30,7 +30,9 @@ export class CmsIndex extends React.Component {
 		this.handleNewItem = this.handleNewItem.bind(this);
 		this.toggleStatus = this.toggleStatus.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
+		this.handleEdit = this.handleEdit.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
+		this.toggleModalCancel = this.toggleModalCancel.bind(this);
 
 		// Local state for the modal
 		this.state = {
@@ -45,7 +47,19 @@ export class CmsIndex extends React.Component {
 	}
 
 	handleNewItem(item) {
-		this.props.actions.api.apiAddItem(item);
+		// Checking to see if the item already exists. 
+		// The ID should only exist if it's already saved on the server
+		// So we are either updating or sending a new item 
+		if (item.id.length){
+			console.log('coming here UPDATE_ITEM');
+			this.props.actions.api.apiUpdateItem(item);
+
+		} else {
+			console.log('or here: ADD ITEM')
+			delete item.id;
+			this.props.actions.api.apiAddItem(item);
+		}
+		
 		this.toggleModal();
 	}
 
@@ -55,12 +69,27 @@ export class CmsIndex extends React.Component {
 
 	handleDelete(id) {
 		var confirmDelete = confirm('Are you sure you want to delete?');
-		(confirmDelete) ? 'this.props.actions.api.deleteItem(id)' : null;
+		(confirmDelete) ? this.props.actions.api.deleteItem(id) : null;
+	}
+
+	handleEdit(id) {
+		// console.log(id);
+		this.props.actions.api.editItem(id);
+		this.setState({
+			modalIsOpen: !this.state.modalIsOpen
+		});
 	}
 
 	toggleModal() {
 		this.setState({
 			modalIsOpen: !this.state.modalIsOpen
+		});
+	}
+
+	toggleModalCancel() {
+		this.props.actions.api.cancelEdit();
+		this.setState({
+			modalIsOpen: false
 		});
 	}
 
@@ -87,18 +116,25 @@ export class CmsIndex extends React.Component {
 						<Filters statuses={this.props.statuses} toggleStatus={this.toggleStatus} />
 					</Col>
 					<Col md='65%'>
-						<ListItems data={this.props.data} statuses={this.props.statuses} handleDelete={this.handleDelete} />
+						<ListItems 
+							data={this.props.data} 
+							statuses={this.props.statuses} 
+							handleDelete={this.handleDelete} 
+							handleEdit={this.handleEdit}
+						/>
 					</Col>
 				</Row>
 				
-				<Modal isOpen={this.state.modalIsOpen} onCancel={this.toggleModal} backdropClosesModal={true}>
+				<Modal isOpen={this.state.modalIsOpen} onCancel={(this.props.apiReducer.isEditing) ? this.toggleModalCancel : this.toggleModal} backdropClosesModal={true}>
 					<ModalHeader text="Add or Edit item" showCloseButton onClose={this.toggleModal} />
 					<ModalBody>
-						<ItemForm handleNewItem={this.handleNewItem} statuses={this.props.statuses} />
+						<ItemForm 
+							handleNewItem={this.handleNewItem} 
+							statuses={this.props.statuses} 
+							isEditing={this.props.apiReducer.isEditing}
+							itemBeingEdited={this.props.apiReducer.itemBeingEdited}
+						/>
 					</ModalBody>
-					<ModalFooter>
-						<Button type="link-cancel" onClick={this.toggleModal}>Cancel</Button>
-					</ModalFooter>
 				</Modal>
 			</Container>
 		);

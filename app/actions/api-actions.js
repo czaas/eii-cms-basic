@@ -5,7 +5,8 @@ import {
 	GET_DATA, RECEIVE_DATA, 
 	SEND_ITEM, ADD_ITEM,
 	REQUEST_DELETE_ITEM, RESPONSE_DELETE_ITEM,
-	STATUS_FILTER
+	STATUS_FILTER,
+	EDIT_ITEM, POST_UPDATED_ITEM, ITEM_UPDATED, CANCEL_EDIT
 } from '../constants/action-types.js';
 
 
@@ -70,7 +71,10 @@ export function apiAddItem (item) {
 		dispatch(sendItem(item)); // updates the state to show isPosting data
 
 		axios.post(apiUrl, item)
-		.then((response) => dispatch(addItem(response.data.context_item))) // adds item to state and removes
+		.then((response) => {
+			console.log(response);
+			dispatch(addItem(response.data.context_item))
+		}) // adds item to state and removes
 		.catch((err) => console.error(err));										 // isPosting state
 
 	};
@@ -117,3 +121,57 @@ END api delete item request
 ========================================================*/
 
 
+
+/*========================================================
+START api edit item request
+========================================================*/
+// start the editing
+export function editItem(id) {
+	return {
+		type: EDIT_ITEM,
+		id
+	};
+}
+
+export function cancelEdit() {
+	return {
+		type: CANCEL_EDIT,
+	};
+}
+
+// Part of the async call after item is done being edited
+function postEditItem(updatedItem) {
+	return {
+		type: POST_UPDATED_ITEM,
+		updatedItem
+	};
+}
+
+function itemUpdated(id, updatedItem) {
+	return {
+		type: ITEM_UPDATED,
+		id,
+		updatedItem
+	};
+}
+export function apiUpdateItem(updatedItem) {
+	return (dispatch) => {
+
+		dispatch(postEditItem(updatedItem));
+
+		axios.put(apiUrl + updatedItem.id, updatedItem)
+		.then((response) => {
+			if (response.data.success) { 
+				dispatch(itemUpdated(JSON.parse(response.config.data).id, JSON.parse(response.config.data))) 
+			} else {
+				console.log(response.data);
+			}
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+	}
+}
+/*========================================================
+END api edit item request
+========================================================*/

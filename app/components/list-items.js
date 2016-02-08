@@ -22,9 +22,10 @@ export class ListItems extends React.Component {
 
 			var visibilityStyles = function (item){
 
-				var currentStatus = _.find(this.props.statuses, (s) => s.name.toLowerCase() === item.status.toLowerCase());
-
-				return (currentStatus.isVisible) ? { display: 'block' } : { display: 'none' };
+				if(item){
+					var currentStatus = _.find(this.props.statuses, (s) => s.name.toLowerCase() === item.status.toLowerCase());
+					return (currentStatus.isVisible) ? { display: 'block' } : { display: 'none' };
+				}
 			}.bind(this);
 
 			return (
@@ -34,7 +35,10 @@ export class ListItems extends React.Component {
 					<p>{item.id}</p>
 					<p>Status: {item.status}</p>
 					<p>Tags: {itemTags}</p>
-					<p><Button onClick={this.props.handleDelete.bind(this, item.id)} type='link-delete'><Glyph icon='trashcan' /></Button></p>
+					<p>
+						<Button onClick={this.props.handleEdit.bind(this, item.id)} type='default'><Glyph icon='pencil' /></Button>
+						<Button onClick={this.props.handleDelete.bind(this, item.id)} type='default-danger'><Glyph icon='trashcan' /></Button>
+					</p>
 					<hr />
 				</div>
 			);
