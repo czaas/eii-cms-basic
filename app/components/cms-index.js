@@ -32,8 +32,8 @@ export class CmsIndex extends React.Component {
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleEdit = this.handleEdit.bind(this);
 		this.toggleModal = this.toggleModal.bind(this);
-		this.toggleModalCancel = this.toggleModalCancel.bind(this);
-
+		this.closeModal = this.closeModal.bind(this);
+		this.openModal = this.openModal.bind(this);
 		// Local state for the modal
 		this.state = {
 			modalIsOpen: false
@@ -60,7 +60,7 @@ export class CmsIndex extends React.Component {
 			this.props.actions.api.apiAddItem(item);
 		}
 		
-		this.toggleModal();
+		this.closeModal();
 	}
 
 	toggleStatus(index) {
@@ -73,7 +73,6 @@ export class CmsIndex extends React.Component {
 	}
 
 	handleEdit(id) {
-		// console.log(id);
 		this.props.actions.api.editItem(id);
 		this.setState({
 			modalIsOpen: !this.state.modalIsOpen
@@ -86,11 +85,18 @@ export class CmsIndex extends React.Component {
 		});
 	}
 
-	toggleModalCancel() {
-		this.props.actions.api.cancelEdit();
-		this.setState({
-			modalIsOpen: false
-		});
+	openModal() {
+		this.toggleModal();
+	}
+
+	closeModal() {
+
+		if(this.props.apiReducer.isEditing) {
+			this.toggleModal();
+			this.props.actions.api.cancelEdit();
+		} else {
+			this.toggleModal();
+		}
 	}
 
 	render() {
@@ -109,7 +115,7 @@ export class CmsIndex extends React.Component {
 					</Col>
 				</Row>
 				<Row>
-					<Button onClick={this.toggleModal} type='primary'><Glyph icon='file-add' /> Add Item</Button>
+					<Button onClick={this.openModal} type='primary'><Glyph icon='file-add' /> Add Item</Button>
 				</Row>
 				<Row>
 					<Col md='35%'>
@@ -125,8 +131,10 @@ export class CmsIndex extends React.Component {
 					</Col>
 				</Row>
 				
-				<Modal isOpen={this.state.modalIsOpen} onCancel={(this.props.apiReducer.isEditing) ? this.toggleModalCancel : this.toggleModal} backdropClosesModal={true}>
-					<ModalHeader text="Add or Edit item" showCloseButton onClose={this.toggleModal} />
+
+
+				<Modal isOpen={this.state.modalIsOpen} onCancel={this.closeModal} backdropClosesModal={true}>
+					<ModalHeader text={(this.props.apiReducer.isEditing) ? 'Edit Item' : 'Add New Item'} showCloseButton onClose={this.closeModal} />
 					<ModalBody>
 						<ItemForm 
 							handleNewItem={this.handleNewItem} 
@@ -140,6 +148,7 @@ export class CmsIndex extends React.Component {
 		);
 	}
 }
+
 
 // Binding data of posts to props
 function mapStateToProps (state) {

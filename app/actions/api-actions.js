@@ -163,8 +163,6 @@ export function apiUpdateItem(updatedItem) {
 		.then((response) => {
 			if (response.data.success) { 
 				dispatch(itemUpdated(JSON.parse(response.config.data).id, JSON.parse(response.config.data))) 
-			} else {
-				console.log(response.data);
 			}
 		})
 		.catch((err) => {

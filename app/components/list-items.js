@@ -33,6 +33,7 @@ export class ListItems extends React.Component {
 					<p><strong>{item.content.title}</strong></p>
 					<p>{item.content.body}</p>
 					<p>{item.id}</p>
+					<p>Item type: {item.type}</p>
 					<p>Status: {item.status}</p>
 					<p>Tags: {itemTags}</p>
 					<p>

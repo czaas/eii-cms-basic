@@ -75,12 +75,12 @@ export class ItemForm extends React.Component {
 			tags: tags,
 		};
 
-		if(newItem.meta_data.title.length >= 1 || newItem.meta_data.description.length >= 1 ){
+		if(newItem.meta_data.title.length >= 1){
 			this.props.handleNewItem(newItem);
 			this.refs.itemForm.reset();
 		} else {
 			this.setState({
-				validationMessage: 'Meta Title and Description are required'
+				validationMessage: 'Meta Title'
 			});
 		}
 	}
