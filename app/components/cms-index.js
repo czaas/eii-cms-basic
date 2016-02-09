@@ -51,16 +51,13 @@ export class CmsIndex extends React.Component {
 		// The ID should only exist if it's already saved on the server
 		// So we are either updating or sending a new item 
 		if (item.id.length){
-			console.log('coming here UPDATE_ITEM');
 			this.props.actions.api.apiUpdateItem(item);
-
+			this.closeModal();
 		} else {
-			console.log('or here: ADD ITEM')
 			delete item.id;
 			this.props.actions.api.apiAddItem(item);
+			this.closeModal();
 		}
-		
-		this.closeModal();
 	}
 
 	toggleStatus(index) {
@@ -89,11 +86,15 @@ export class CmsIndex extends React.Component {
 		this.toggleModal();
 	}
 
-	closeModal() {
+	closeModal(confirmUser) {
 
-		if(this.props.apiReducer.isEditing) {
-			this.toggleModal();
+		// If you pass any parameter that === true, it will prompt the user the new data is not saved. 
+		// If you don't want to confirm user, it will close without notice
+		var confirmCloseModal = (confirmUser) ? ('Any new data is not saved! Are you sure you want to close?') : false;
+
+		if (confirmCloseModal) {
 			this.props.actions.api.cancelEdit();
+			this.toggleModal();
 		} else {
 			this.toggleModal();
 		}
@@ -134,7 +135,7 @@ export class CmsIndex extends React.Component {
 
 
 				<Modal isOpen={this.state.modalIsOpen} onCancel={this.closeModal} backdropClosesModal={true}>
-					<ModalHeader text={(this.props.apiReducer.isEditing) ? 'Edit Item' : 'Add New Item'} showCloseButton onClose={this.closeModal} />
+					<ModalHeader text={(this.props.apiReducer.isEditing) ? 'Edit Item' : 'Add New Item'} showCloseButton onClose={this.closeModal.bind(this, 'confirmUserDelete')} />
 					<ModalBody>
 						<ItemForm 
 							handleNewItem={this.handleNewItem} 

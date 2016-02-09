@@ -59,7 +59,13 @@ export class ItemForm extends React.Component {
 
 		// splitting the strings at the comma 
 		// then trimming whitespace around the tags
-		let tags = this.refs.tags.value.split(',').map( s => s.trim()); 
+		let tags = this.refs.tags.value.split(',').map( s => s.trim());
+
+		if(tags[0] === '') {
+			tags = [];
+		}
+
+		// Collect all data
 		let newItem = {
 			id: this.refs.id.value,
 			type: this.state.selectedType,
@@ -75,13 +81,30 @@ export class ItemForm extends React.Component {
 			tags: tags,
 		};
 
-		if(newItem.meta_data.title.length >= 1){
+		// Validate...really dirty
+		if(isValid(newItem.meta_data.title) && isValid(newItem.meta_data.description) && isValid(newItem.tags) && isValid(newItem.content.title)){
 			this.props.handleNewItem(newItem);
 			this.refs.itemForm.reset();
 		} else {
+			
+			var validationArr = ['Please fill out:'];
+			
+			(isValid(newItem.meta_data.title)) ? true : validationArr.push('Meta Title,');
+			(isValid(newItem.meta_data.description)) ? true : validationArr.push('Meta description,');
+			(isValid(newItem.tags)) ? true : validationArr.push('1 Meta Tag,');
+
+			(isValid(newItem.content.title)) ? true : validationArr.push('Content Title,');
+
 			this.setState({
-				validationMessage: 'Meta Title'
+				validationMessage: validationArr.join(' ').slice(0, -1) // removes the trailing comma
 			});
+
+			validationArr = ['Please fill out:'];
+		}
+
+
+		function isValid(input) {
+			return input.length >= 1;
 		}
 	}
 
