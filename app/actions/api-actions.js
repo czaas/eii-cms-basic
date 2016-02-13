@@ -14,13 +14,13 @@ import {
 /* ========================================================
 START of api get data
 ======================================================== */
-function getData (itemType) {
+export function getData (itemType) {
 	return {
 		type: GET_DATA,
 		itemType
 	};
 }
-function receiveData (data) {
+export function receiveData (data) {
 	return {
 		type: RECEIVE_DATA,
 		newData: data
@@ -51,14 +51,14 @@ END of api get data
 /* ========================================================
 START of api add item	
 ======================================================== */
-function sendItem (item) {
+export function sendItem (item) {
 	return {
 		type: SEND_ITEM,
 		item
 	}
 }
 
-function addItem (item) {
+export function addItem (item) {
 	return {
 		type: ADD_ITEM,
 		newItem: item
@@ -75,8 +75,7 @@ export function apiAddItem (item) {
 			console.log(response);
 			dispatch(addItem(response.data.context_item))
 		}) // adds item to state and removes
-		.catch((err) => console.error(err));										 // isPosting state
-
+		.catch((err) => console.error(err));
 	};
 }
 /* ========================================================
@@ -90,13 +89,13 @@ END of api add item
 /* ========================================================
 START api delete item request
 ========================================================*/
-function sendDeleteRequest(id){
+export function sendDeleteRequest(id){
 	return {
 		type: REQUEST_DELETE_ITEM,
 		id
 	}
 }
-function receiveDeleteRequest(id) {
+export function receiveDeleteRequest(id) {
 	return {
 		type: RESPONSE_DELETE_ITEM,
 		id
@@ -140,14 +139,14 @@ export function cancelEdit() {
 }
 
 // Part of the async call after item is done being edited
-function postEditItem(updatedItem) {
+export function postEditItem(updatedItem) {
 	return {
 		type: POST_UPDATED_ITEM,
 		updatedItem
 	};
 }
 
-function itemUpdated(id, updatedItem) {
+export function itemUpdated(id, updatedItem) {
 	return {
 		type: ITEM_UPDATED,
 		id,
