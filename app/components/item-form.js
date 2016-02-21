@@ -25,6 +25,7 @@ export class ItemForm extends React.Component {
 			content: {
 				title: '',
 				body: '',
+				videoUrl: '',
 			}
 		};
 
@@ -76,7 +77,8 @@ export class ItemForm extends React.Component {
 			},
 			content: {
 				title: this.refs.content_title.value,
-				body:  this.refs.content_body.value
+				body:  this.refs.content_body.value,
+				videoUrl: this.refs.video_url.value,
 			},
 			tags: tags,
 		};
@@ -94,6 +96,10 @@ export class ItemForm extends React.Component {
 			(isValid(newItem.tags)) ? true : validationArr.push('1 Meta Tag,');
 
 			(isValid(newItem.content.title)) ? true : validationArr.push('Content Title,');
+
+			if(newItem.type === 'video') {
+				isValid(newItem.content.videoUrl) ? true : validationArr.push('Video Url');
+			}
 
 			this.setState({
 				validationMessage: validationArr.join(' ').slice(0, -1) // removes the trailing comma
@@ -148,6 +154,9 @@ export class ItemForm extends React.Component {
 					</FormField>
 					<FormField label="Body Content" htmlFor="description">
 						<input placeholder="body content" name="body content" multiline ref="content_body" className="FormInput" required defaultValue={this.state.defaultValues.content.body} />
+					</FormField>
+					<FormField label="Video Url" htmlFor="video-url">
+						<input placeholder="Video Url" name="body content" multiline ref="video_url" className="FormInput" required defaultValue={this.state.defaultValues.content.videoUrl} />
 					</FormField>
 					
 					<Button type="default" onClick={this.handleSubmit}>{(this.props.isEditing) ? 'Save' : 'Submit'}</Button>
