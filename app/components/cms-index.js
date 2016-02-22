@@ -107,12 +107,15 @@ export class CmsIndex extends React.Component {
 					<Col md='1/3'>
 						<h1>CMS</h1>
 					</Col>
-					<Col md='2/3'>
+					<Col md='1/3'>
 						<LoadingIndicator 
 							isFetching={this.props.apiReducer.isFetching} 
 							isDeleting={this.props.apiReducer.isDeleting} 
 							isPosting={this.props.apiReducer.isPosting} 
 						/>
+					</Col>
+					<Col md='1/3'>
+						<a href='/video-feature.html' target="_blank">Video Feature Example <Glyph icon='chevron-right' /></a>
 					</Col>
 				</Row>
 				<Row>
